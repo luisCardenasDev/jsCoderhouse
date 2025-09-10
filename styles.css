@@ -1,0 +1,72 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fondo con gradiente */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #f7f7f7, #e0eafc);
+  color: #333;
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Contenedor principal */
+.container {
+  background: #fff;
+  max-width: 800px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Título */
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 400px;
+  height: 3px;
+  background: #3498db;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* Párrafos */
+p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+/* Caja de aviso */
+.notice {
+  background: #ecf9ff;
+  border-left: 5px solid #3498db;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  font-style: italic;
+  color: #2c3e50;
+}
