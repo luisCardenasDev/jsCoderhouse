@@ -15,6 +15,7 @@ export function FormModule({ containerId, onSave }) {
     percentageIVA: form.querySelector("#percentageIVA"),
     iva: form.querySelector("#iva"),
     total: form.querySelector("#total"),
+    currency: form.querySelector("#currency"), // agregado
     centerCost: form.querySelector("#centerCost"),
     user: form.querySelector("#user"),
     description: form.querySelector("#description")
@@ -38,9 +39,9 @@ export function FormModule({ containerId, onSave }) {
         if (factura[k] !== undefined) refs[k].value = factura[k];
       });
     } else {
-      clearForm(false); // abrir vacío
+      clearForm(false);
     }
-    form.style.display = "block"; // asegurar que siempre se muestre
+    form.style.display = "block";
   }
 
   function calculateIVAanTotal() {
@@ -53,7 +54,7 @@ export function FormModule({ containerId, onSave }) {
   }
 
   function validateVisualForm() {
-    const requireds = ["nroDocument","ruc","legalName","date","subtotal","description","centerCost","user"];
+    const requireds = ["nroDocument","ruc","legalName","date","subtotal","description","centerCost","user","currency"];
     let allValid = true;
     requireds.forEach(id => {
       const input = refs[id];

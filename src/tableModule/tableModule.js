@@ -1,6 +1,3 @@
-// ==========================
-// tableModule.js
-// ==========================
 import { formatNumber, parseNumberFormatted } from "../utils/utils.js";
 import tableFields from "./mocks/tableFields.js";
 
@@ -30,6 +27,7 @@ export function TableModule({ containerId, onEdit, onDelete, onAdd }) {
           if (f.id === "subtotal") return `<td>${formatNumber(item.subtotal)}</td>`;
           if (f.id === "iva") return `<td>${formatNumber(iva)}</td>`;
           if (f.id === "total") return `<td>${formatNumber(total)}</td>`;
+          if (f.id === "currency") return `<td>${item.currency || ""}</td>`;
           return `<td>${item[f.id] || ""}</td>`;
         }).join("") +
         `<td>
@@ -88,6 +86,8 @@ export function TableModule({ containerId, onEdit, onDelete, onAdd }) {
           item[f.id] = tr.children[idx + 1].textContent;
         }
       });
+      // moneda
+      item.currency = tr.children[10].textContent;
       onEdit && onEdit(item);
     }
   });
