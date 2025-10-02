@@ -1,15 +1,126 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/style.css">
-    <title>petty-cash</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <div id="formContainer"></div>
-    <div id="tableContainer"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario Factura</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <div id="formContainer">
+    <form id="formInvoice" style="display:none">
+      <!-- Fila 1 -->
+      <div class="row">
+        <div class="col col-1">
+          <label for="idDocument">ID Doc</label>
+          <input type="text" id="idDocument" disabled />
+        </div>
+        <div class="col col-2">
+          <label for="nroDocument">N° Doc</label>
+          <input type="text" id="nroDocument" />
+        </div>
+        <div class="col col-3">
+          <label for="ruc">RUC</label>
+          <input type="text" id="ruc" maxlength="11" />
+        </div>
+        <div class="col col-3">
+          <label for="legalName">Razón Social</label>
+          <input type="text" id="legalName" />
+        </div>
+        <div class="col col-3">
+          <label for="date">Fecha</label>
+          <input type="date" id="date" />
+        </div>
+      </div>
+
+      <!-- Fila 2 -->
+      <div class="row">
+        <div class="col col-1">
+          <label for="subtotal">Subtotal</label>
+          <input type="number" id="subtotal" step="0.01" />
+        </div>
+        <div class="col col-1">
+          <label for="percentageIVA">% IVA</label>
+          <select id="percentageIVA">
+            <option value="18">18%</option>
+            <option value="0">0%</option>
+          </select>
+        </div>
+        <div class="col col-1">
+          <label for="iva">IVA</label>
+          <select id="iva" disabled>
+            <option value="0">0</option>
+          </select>
+        </div>
+        <div class="col col-1">
+          <label for="total">Total</label>
+          <input type="text" id="total" disabled />
+        </div>
+        <div class="col col-2">
+          <label for="centerCost">Centro de Costo</label>
+          <select id="centerCost">
+            <option value="">--Seleccione--</option>
+            <option value="Administrativo">Administrativo</option>
+            <option value="Operativo">Operativo</option>
+          </select>
+        </div>
+        <div class="col col-2">
+          <label for="user">Usuario</label>
+          <select id="user">
+            <option value="">--Seleccione--</option>
+            <option value="Juan">Juan</option>
+            <option value="Maria">Maria</option>
+          </select>
+        </div>
+        <div class="col col-4">
+          <label for="description">Descripción</label>
+          <textarea id="description"></textarea>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button type="submit" class="btn-save">Guardar</button>
+        <button type="button" id="btnCancell" class="btn-cancell">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="tableContainer">
+    <table id="invoiceTable">
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="selectAll"></th>
+          <th>ID</th>
+          <th>N° Doc</th>
+          <th>RUC</th>
+          <th>Razón Social</th>
+          <th>Fecha</th>
+          <th>Subtotal</th>
+          <th>% IVA</th>
+          <th>IVA</th>
+          <th>Total</th>
+          <th>Moneda</th>
+          <th>Centro Costo</th>
+          <th>Usuario</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- filas dinámicas -->
+      </tbody>
+    </table>
+
+    <!-- Resumen -->
+    <div id="invoiceSummary">
+      <p><strong>Records:</strong> <span id="recordCount">0</span></p>
+      <p><strong>Total by currency:</strong> <span id="currencyTotal">0.00</span></p>
+    </div>
+
+    <!-- Botón agregar -->
+    <button id="btnAddInvoice" class="btn-add-invoice">+ Agregar Factura</button>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
 </html>

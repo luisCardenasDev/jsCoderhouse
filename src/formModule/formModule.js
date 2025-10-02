@@ -1,107 +1,55 @@
 import { formatNumber, generateId, parseNumberFormatted } from "../utils/utils.js";
-import formFields from "./mocks/formFields.js";
 
-export function FormModule({ containerId, onSubmit }) {
+export function FormModule({ containerId, onSave }) {
   const container = document.getElementById(containerId);
+  const form = container.querySelector("#formInvoice");
   let invoiceEditingId = null;
 
-  const form = document.createElement("form");
-  form.id = "formInvoice";
-  form.style.display = "none";
-
-  // GENERAR FILAS DINÁMICAMENTE
-  let currentRow = document.createElement("div");
-  currentRow.className = "row";
-  let currentWidth = 0;
-
-  formFields.forEach(c => {
-    const col = document.createElement("div");
-    col.className = `col ${c.colClass || "col-4"}`;
-    currentWidth += parseInt(c.colClass?.split("-")[1] || "4");
-
-    const label = document.createElement("label");
-    label.textContent = c.label;
-    col.appendChild(label);
-
-    let input;
-    if (c.type === "select") {
-      input = document.createElement("select");
-      c.options.forEach(opt => {
-        const o = document.createElement("option");
-        o.value = opt;
-        o.textContent = opt;
-        input.appendChild(o);
-      });
-    } else if (c.type === "textarea") {
-      input = document.createElement("textarea");
-    } else {
-      input = document.createElement("input");
-      input.type = c.type;
-    }
-
-    if (c.disabled) input.disabled = true;
-    if (c.maxlength) input.maxLength = c.maxlength;
-    input.id = c.id;
-
-    if (c.id === "idDocument" && !invoiceEditingId) {
-      input.value = generateId();
-    }
-
-    col.appendChild(input);
-    currentRow.appendChild(col);
-
-    if (currentWidth >= 12) {
-      form.appendChild(currentRow);
-      currentRow = document.createElement("div");
-      currentRow.className = "row";
-      currentWidth = 0;
-    }
-  });
-
-  if (currentRow.children.length > 0) form.appendChild(currentRow);
-
-  // BOTONES
-  const actions = document.createElement("div");
-  actions.className = "form-actions";
-  actions.innerHTML = `
-    <button type="submit" class="btn-save">Guardar</button>
-    <button type="button" id="btnCancell" class="btn-cancell">Cancelar</button>
-  `;
-  form.appendChild(actions);
-  container.appendChild(form);
-
-  const refs = {};
-  formFields.forEach(c => refs[c.id] = form.querySelector(`#${c.id}`));
+  const refs = {
+    idDocument: form.querySelector("#idDocument"),
+    nroDocument: form.querySelector("#nroDocument"),
+    ruc: form.querySelector("#ruc"),
+    legalName: form.querySelector("#legalName"),
+    date: form.querySelector("#date"),
+    subtotal: form.querySelector("#subtotal"),
+    percentageIVA: form.querySelector("#percentageIVA"),
+    iva: form.querySelector("#iva"),
+    total: form.querySelector("#total"),
+    centerCost: form.querySelector("#centerCost"),
+    user: form.querySelector("#user"),
+    description: form.querySelector("#description")
+  };
 
   function clearForm(hide = true) {
     invoiceEditingId = null;
-    formFields.forEach(c => {
-      const input = refs[c.id];
-      if (c.type === "select") input.value = c.options[0] || "";
+    Object.values(refs).forEach(input => {
+      if (input.tagName === "SELECT") input.selectedIndex = 0;
       else input.value = "";
-      if (c.id === "idDocument") input.value = generateId();
-      input.classList.remove("valid","invalid");
+      input.classList.remove("valid", "invalid");
     });
+    refs.idDocument.value = generateId();
     if (hide) form.style.display = "none";
   }
 
   function openForm(factura = null) {
     if (factura) {
       invoiceEditingId = factura.idDocument;
-      formFields.forEach(c => {
-        const input = refs[c.id];
-        if (factura[c.id] !== undefined) input.value = factura[c.id];
+      Object.keys(refs).forEach(k => {
+        if (factura[k] !== undefined) refs[k].value = factura[k];
       });
-    } else clearForm(false);
-    form.style.display = "block";
+    } else {
+      clearForm(false); // abrir vacío
+    }
+    form.style.display = "block"; // asegurar que siempre se muestre
   }
 
   function calculateIVAanTotal() {
-    const subtotal = parseNumberFormatted(refs["subtotal"].value);
-    const percentage = parseFloat(refs["percentageIVA"].value) || 0;
+    let subtotal = parseFloat(refs.subtotal.value) || 0;
+    subtotal = parseFloat(subtotal.toFixed(2));
+    const percentage = parseFloat(refs.percentageIVA.value) || 0;
     const iva = +(subtotal * (percentage / 100));
-    refs["iva"].value = formatNumber(iva);
-    refs["total"].value = formatNumber(subtotal + iva);
+    refs.iva.value = formatNumber(iva);
+    refs.total.value = formatNumber(subtotal + iva);
   }
 
   function validateVisualForm() {
@@ -109,11 +57,16 @@ export function FormModule({ containerId, onSubmit }) {
     let allValid = true;
     requireds.forEach(id => {
       const input = refs[id];
-      const value = String(input.value).trim();
-      if (!value || (id === "ruc" && input.value.replace(/\D/g,'').length !== 11)) {
+      const value = String(input?.value || "").trim();
+      if (!value) {
         input.classList.add("invalid");
         input.classList.remove("valid");
         allValid = false;
+      } else if (id === "ruc" && input.value.replace(/\D/g,'').length !== 11) {
+        input.classList.add("invalid");
+        input.classList.remove("valid");
+        allValid = false;
+        alert("RUC inválido: debe tener 11 dígitos");
       } else {
         input.classList.add("valid");
         input.classList.remove("invalid");
@@ -122,20 +75,20 @@ export function FormModule({ containerId, onSubmit }) {
     return allValid;
   }
 
-  // EVENTOS
-  refs["subtotal"].addEventListener("input", calculateIVAanTotal);
-  refs["percentageIVA"].addEventListener("change", calculateIVAanTotal);
+  // Eventos
+  refs.subtotal.addEventListener("input", calculateIVAanTotal);
+  refs.percentageIVA.addEventListener("change", calculateIVAanTotal);
   form.querySelector("#btnCancell").addEventListener("click", () => clearForm());
+
   form.addEventListener("submit", e => {
     e.preventDefault();
-    if (!validateVisualForm()) return alert("Complete los campos requeridos en rojo");
+    if (!validateVisualForm()) return;
     const factura = {};
-    formFields.forEach(c => factura[c.id] = refs[c.id].value);
+    Object.keys(refs).forEach(k => factura[k] = refs[k].value);
     factura.idDocument = invoiceEditingId || generateId();
-    onSubmit(factura);
+    onSave(factura);
     clearForm();
   });
 
   return { openForm, clearForm };
 }
-
