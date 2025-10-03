@@ -127,35 +127,42 @@
       </div>
     </form>
   </div>
+  
+<h3>Tabla de Registro de Documentos</h3><!-- ============================= -->
+<!-- Contenedor de Filtros -->
+<!-- ============================= -->
+<div id="filterContainer" class="filter-container">
+  <!-- Primer select fijo -->
+  <label for="filterField">Filtrar por:</label>
+  <select id="filterField" class="filter-input">
+    <option value="">--Seleccione campo--</option>
+    <option value="nroDocument">N° Doc</option>
+    <option value="ruc">RUC</option>
+    <option value="legalName">Razón Social</option>
+    <option value="date">Fecha</option>
+    <option value="currency">Moneda</option>
+    <option value="centerCost">Centro de Costo</option>
+    <option value="user">Usuario</option>
+  </select>
 
-  <!-- ============================= -->
-  <!-- Contenedor de Filtros -->
-  <!-- ============================= -->
-  <!-- Permite filtrar las facturas por campo y valor -->
-  <div id="filterContainer">
-    <!-- Primer select fijo -->
-    <label for="filterField">Filtrar por:</label>
-    <select id="filterField">
-      <option value="">--Seleccione campo--</option>
-      <option value="nroDocument">N° Doc</option>
-      <option value="ruc">RUC</option>
-      <option value="legalName">Razón Social</option>
-      <option value="date">Fecha</option>
-      <option value="currency">Moneda</option>
-      <option value="centerCost">Centro de Costo</option>
-      <option value="user">Usuario</option>
-    </select>
+  <!-- Segundo select/input dinámico -->
+  <div id="filterValueWrapper" class="filter-input"></div>
 
-    <!-- Segundo select/input dinámico -->
-    <div id="filterValueWrapper"></div>
+  <!-- Botones de ordenamiento estáticos -->
+  <div id="sortButtonsWrapper" class="filter-buttons">
+    <button data-sort="date" data-order="desc">Más Reciente</button>
+    <button data-sort="date" data-order="asc">Más Antiguo</button>
+    <button data-sort="total" data-order="desc">Monto Mayor</button>
+    <button data-sort="total" data-order="asc">Monto Menor</button>
   </div>
+</div>
 
   <!-- ============================= -->
   <!-- Contenedor de Tabla -->
   <!-- ============================= -->
   <!-- Tabla que muestra todas las facturas registradas -->
   <div id="tableContainer">
-    <h3>Tabla de Registro de Documentos</h3>
+
     <table id="invoiceTable">
       <thead>
         <tr>

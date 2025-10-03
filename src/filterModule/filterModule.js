@@ -5,7 +5,8 @@ import { createSelect } from "./helpers/createSelect.js";
 
 /**
  * FilterModule
- * Módulo de filtrado dinámico para facturas.
+ * Módulo de filtrado dinámico para facturas con botones de ordenamiento estáticos.
+ *
  * Primer select fijo, segundo select/input dinámico según el campo.
  *
  * @param {Object} options
@@ -22,8 +23,9 @@ export function FilterModule({ data = [], onFiltered }) {
   // ==============================
   // Referencias fijas en DOM
   // ==============================
-  const fieldSelect = document.getElementById("filterField");       // Primer select fijo
+  const fieldSelect = document.getElementById("filterField");         // Primer select fijo
   const valueWrapper = document.getElementById("filterValueWrapper"); // Contenedor dinámico
+  const sortButtonsWrapper = document.getElementById("sortButtonsWrapper"); // Botones de ordenamiento estáticos
 
   // Campos filtrables y tipo
   const filterFields = [
@@ -68,7 +70,9 @@ export function FilterModule({ data = [], onFiltered }) {
     }
   }
 
-  // Evento cambio del primer select
+  // ==============================
+  // Eventos del primer select
+  // ==============================
   fieldSelect.addEventListener("change", () => {
     filters = {}; // reset filtro anterior
     renderValueInput(fieldSelect.value);
@@ -76,14 +80,32 @@ export function FilterModule({ data = [], onFiltered }) {
   });
 
   // ==============================
-  // Lógica de filtros
+  // Eventos de botones de ordenamiento
+  // ==============================
+  if (sortButtonsWrapper) {
+    sortButtonsWrapper.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const field = btn.dataset.sort;
+        const order = btn.dataset.order;
+        setSort(field, order);
+        apply();
+      });
+    });
+  }
+
+  // ==============================
+  // Lógica de filtros y orden
   // ==============================
   function setFilters(newFilters) { filters = { ...filters, ...newFilters }; }
-  function setSort(field, order = "asc") { sortField = field; sortOrder = order.toLowerCase() === "desc" ? "desc" : "asc"; }
+  function setSort(field, order = "asc") {
+    sortField = field;
+    sortOrder = order.toLowerCase() === "desc" ? "desc" : "asc";
+  }
 
   function apply() {
     let result = [...originalData];
 
+    // Aplicar filtros dinámicos
     Object.entries(filters).forEach(([key, value]) => {
       if (!value) return;
 
@@ -100,6 +122,7 @@ export function FilterModule({ data = [], onFiltered }) {
       }
     });
 
+    // Aplicar ordenamiento
     if (sortField) {
       result.sort((a, b) => {
         const valA = a[sortField] ?? "";
@@ -115,6 +138,9 @@ export function FilterModule({ data = [], onFiltered }) {
     return result;
   }
 
+  // ==============================
+  // Funciones auxiliares
+  // ==============================
   function reset() {
     filters = {};
     fieldSelect.value = "";
@@ -128,6 +154,7 @@ export function FilterModule({ data = [], onFiltered }) {
       el.style.pointerEvents = "none";
     });
     fieldSelect.disabled = true;
+    sortButtonsWrapper.querySelectorAll("button").forEach(b => b.disabled = true);
   }
 
   function unlock() {
@@ -136,6 +163,7 @@ export function FilterModule({ data = [], onFiltered }) {
       el.style.pointerEvents = "auto";
     });
     fieldSelect.disabled = false;
+    sortButtonsWrapper.querySelectorAll("button").forEach(b => b.disabled = false);
   }
 
   function setData(newData) {
