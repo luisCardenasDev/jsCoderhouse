@@ -1,5 +1,5 @@
-import { FormModule } from "../src/formModule/formModule.js";
-import { TableModule } from "../src/tableModule/tableModule.js";
+import { FormModule } from "./formModule/formModule.js";
+import { TableModule } from "./tableModule/tableModule.js";
 
 // ==========================
 // Estado global
@@ -28,8 +28,8 @@ function handleSave(data) {
   tableModule.render(facturas);
 }
 
-function handleEdit(item) {
-  formModule.openForm(item);
+function handleEdit(item, readonly = false) {
+  formModule.openForm(item, readonly);
 }
 
 function handleDelete(id) {
@@ -42,18 +42,13 @@ function handleDelete(id) {
 // Inicialización módulos
 // ==========================
 const formModule = FormModule({
-  containerId: "formContainer",
   onSave: handleSave
 });
 
 const tableModule = TableModule({
-  containerId: "tableContainer",
   onEdit: handleEdit,
   onDelete: handleDelete,
-  onAdd: () => {
-    // Abrir formulario vacío y asegurar que se muestre
-    formModule.openForm();
-  }
+  onAdd: () => formModule.openForm()
 });
 
 // ==========================

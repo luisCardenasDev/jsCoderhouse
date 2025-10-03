@@ -80,9 +80,14 @@
             <option value="Maria">Maria</option>
           </select>
         </div>
-        <div class="col col-4">
+        <div class="col col-3">
           <label for="description">Descripción</label>
           <textarea id="description"></textarea>
+        </div>
+
+        <div class="col col-3">
+          <label for="documentFile">Documento</label>
+          <input type="file" id="documentFile" accept=".jpg,.jpeg,.png,.pdf"/>
         </div>
       </div>
 
@@ -90,6 +95,7 @@
       <div class="form-actions">
         <button type="submit" class="btn-save">Guardar</button>
         <button type="button" id="btnCancell" class="btn-cancell">Cancelar</button>
+        <button type="button" id="btnEdit" class="btn-edit">Editar</button>
       </div>
     </form>
   </div>
@@ -99,19 +105,16 @@
       <thead>
         <tr>
           <th><input type="checkbox" id="selectAll"></th>
-          <th>ID</th>
           <th>N° Doc</th>
           <th>RUC</th>
           <th>Razón Social</th>
           <th>Fecha</th>
-          <th>Subtotal</th>
-          <th>% IVA</th>
-          <th>IVA</th>
           <th>Total</th>
           <th>Moneda</th>
           <th>Centro Costo</th>
           <th>Usuario</th>
           <th>Descripción</th>
+          <th>Link</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -120,16 +123,18 @@
       </tbody>
     </table>
 
-    <!-- Resumen -->
-    <div id="invoiceSummary">
-      <p><strong>Records:</strong> <span id="recordCount">0</span></p>
-      <p><strong>Total by currency:</strong> <span id="currencyTotal">0.00</span></p>
-    </div>
-
     <!-- Botón agregar -->
     <button id="btnAddInvoice" class="btn-add-invoice">+ Agregar Factura</button>
+
+    <!-- Resumen -->
+    <div id="invoiceSummary">
+      <p><strong>Registros:</strong> <span id="recordCount">0</span></p>
+      <p><strong>Total por Moneda:</strong> <span id="currencyTotal">0.00</span></p>
+    </div>
+
   </div>
 
   <script type="module" src="./src/main.js"></script>
 </body>
 </html>
+
