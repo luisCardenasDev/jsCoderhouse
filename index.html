@@ -133,15 +133,21 @@
   <!-- ============================= -->
   <!-- Permite filtrar las facturas por campo y valor -->
   <div id="filterContainer">
+    <!-- Primer select fijo -->
     <label for="filterField">Filtrar por:</label>
     <select id="filterField">
-      <option value="">--Selecciona campo--</option>
+      <option value="">--Seleccione campo--</option>
+      <option value="nroDocument">N° Doc</option>
+      <option value="ruc">RUC</option>
+      <option value="legalName">Razón Social</option>
+      <option value="date">Fecha</option>
+      <option value="currency">Moneda</option>
+      <option value="centerCost">Centro de Costo</option>
+      <option value="user">Usuario</option>
     </select>
 
-    <label for="filterValue">Valor:</label>
-    <select id="filterValue">
-      <option value="">--Selecciona valor--</option>
-    </select>
+    <!-- Segundo select/input dinámico -->
+    <div id="filterValueWrapper"></div>
   </div>
 
   <!-- ============================= -->

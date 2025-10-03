@@ -206,3 +206,25 @@ textarea.valid {
   margin: 4px 0;
 }
 
+#filterContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+#filterContainer select,
+#filterContainer input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 150px;
+  transition: all 0.2s;
+}
+
+#filterContainer select:focus,
+#filterContainer input:focus {
+  outline: none;
+  border-color: #007BFF;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+}
