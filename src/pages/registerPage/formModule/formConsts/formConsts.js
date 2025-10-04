@@ -1,0 +1,21 @@
+// refsForm.js
+export const refsForm = {
+  formContainer: document.getElementById("formContainer"),
+  formInvoice: document.getElementById("formInvoice"),
+  idDocument: document.getElementById("idDocument"),
+  iva: document.getElementById("iva"),
+  subtotal: document.getElementById("subtotal"),
+  percentageIVA: document.getElementById("percentageIVA"),
+  total: document.getElementById("total"),
+  nroDocument: document.getElementById("nroDocument"),
+  ruc: document.getElementById("ruc"),
+  legalName: document.getElementById("legalName"),
+  date: document.getElementById("date"),
+  description: document.getElementById("description"),
+  centerCost: document.getElementById("centerCost"),
+  user: document.getElementById("user"),
+  currency: document.getElementById("currency"),
+  documentFile: document.getElementById("documentFile"),
+  btnEdit: document.getElementById("btnEdit"),
+  btnCancell: document.getElementById("btnCancell"),
+};
