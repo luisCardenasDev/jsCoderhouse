@@ -34,7 +34,8 @@ The interface is designed for Spanish-speaking users and the code is modular, al
 * Automatic persistence in localStorage.
   
 * Input validation with visual feedback (is-valid / is-invalid).
-* Modular code following a simplified MVC pattern.
+* Modular code organized under a simplified MVC + Observer structure.
+* Reactive update system using a custom Observer (Subscriber) pattern.
 * English comments in code for easier developer comprehension.
   
 
