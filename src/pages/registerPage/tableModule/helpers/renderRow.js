@@ -1,39 +1,44 @@
-// renderRows.js
 import { formatNumber } from "../../../../utils/utils.js";
 import { refsTableHeader } from "../tableConsts/tableConsts.js";
 
 /**
- * Recibe un array de items y devuelve un string HTML con todas las filas
- * usando el orden de campos definido en refsTableHeader
+ * Renders table rows as HTML string from an array of items.
+ * - Uses the order of fields defined in refsTableHeader
+ * - Calculates total per row based on subtotal and IVA
+ * - Adds action buttons for view/delete
  */
 export function renderRows(items) {
-
   return items
     .map(item => {
       const subtotal = parseFloat(item.subtotal) || 0;
       const iva = parseFloat(item.iva) || subtotal * ((parseFloat(item.percentageIVA) || 0) / 100);
       const total = subtotal + iva;
 
-      // Checkbox inicial
+      // Start row with a checkbox
       let rowHtml = `<td><input type="checkbox" class="row-checkbox"></td>`;
 
-      // Itera sobre las keys de refsTableHeader para mantener el orden correcto
+      // Add cells in the order defined by refsTableHeader
       Object.keys(refsTableHeader).forEach(key => {
-        if (key === "total") rowHtml += `<td class="td-total">${formatNumber(total)}</td>`;
-        else if (key === "currency") rowHtml += `<td class="td-currency">${item.currency || ""}</td>`;
-        else if (key === "documentFile") rowHtml += `<td>${item.documentFile ? `<a href="${item.documentFile}" target="_blank">Ver</a>` : ""}</td>`;
-        else rowHtml += `<td>${item[key] || ""}</td>`;
+        if (key === "total") {
+          rowHtml += `<td class="td-total">${formatNumber(total)}</td>`;
+        } else if (key === "currency") {
+          rowHtml += `<td class="td-currency">${item.currency || ""}</td>`;
+        } else if (key === "documentFile") {
+          rowHtml += `<td>${item.documentFile ? `<a href="${item.documentFile}" target="_blank">View</a>` : ""}</td>`;
+        } else {
+          rowHtml += `<td>${item[key] || ""}</td>`;
+        }
       });
 
-      // Botones de acción por fila
+      // Add action buttons for each row
       rowHtml += `<td>
-        <button class="btn-view" data-id="${item.idDocument}">Ver</button>
-        <button class="btn-delete" data-id="${item.idDocument}">Eliminar</button>
+        <button class="btn-view" data-id="${item.idDocument}">View</button>
+        <button class="btn-delete" data-id="${item.idDocument}">Delete</button>
       </td>`;
 
       return `<tr data-id="${item.idDocument}">${rowHtml}</tr>`;
     })
-    .join(""); // Une todas las filas en un único string HTML
+    .join(""); // Combine all rows into a single HTML string
 }
 
 

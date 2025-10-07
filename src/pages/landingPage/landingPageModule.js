@@ -1,7 +1,13 @@
-// landingPageModule.js
 import { ValidateLoginModule } from "./helpers/validateLogin.js";
 import { landingRef } from "./landingConsts/landingConsts.js";
 
+/**
+ * Landing Page Module
+ * Implements a simple MVC pattern:
+ * - Model: local state of modal visibility
+ * - View: rendering modal open/close
+ * - Controller: event listeners and interactions
+ */
 export default function LandingPageModule() {
   const { container, openLogin, btnStart, loginModal, closeLogin } = landingRef;
 
@@ -39,12 +45,14 @@ export default function LandingPageModule() {
     if (e.target === loginModal) setState({ modalOpen: false });
   });
 
-  // 🔹 Inicializa validación de login y pasa callback
-  ValidateLoginModule(
-      setState({ modalOpen: false }
-      )
-  );
+  // Initialize login validation module
+  // The module itself manages form validation and internal state
+  const loginValidator = ValidateLoginModule();
 
-  // Render inicial
+  // Example: after successful login, close modal
+  // Can integrate with setState if needed inside loginValidator
+  // loginValidator.validateForm() could be called programmatically
+
+  // Initial render
   render();
 }

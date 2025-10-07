@@ -7,8 +7,12 @@
 </head>
 <body>
 
+  <!-- ============================= -->
+  <!-- START PAGE SECTION -->
+  <!-- ============================= -->
   <section id="startPage" class="active">
-  <!-- Header -->
+
+    <!-- Header -->
     <header class="site-header">
       <div class="container header-inner">
         <div class="logo">MiGastos</div>
@@ -21,7 +25,7 @@
       </div>
     </header>
 
-    <!-- Hero -->
+    <!-- Hero Section -->
     <div class="hero">
       <div class="container hero-inner">
         <div class="hero-text">
@@ -51,59 +55,50 @@
             <input type="password" id="password" />
             <small class="error-message" id="passwordError"></small>
           </div>
-          <button type="submit" class="btn-primary" >Ingresar</button>
+          <button type="submit" class="btn-primary">Ingresar</button>
         </form>
       </div>
     </div>
+
   </section>
 
-<section id="registerPage" >
+  <!-- ============================= -->
+  <!-- REGISTER PAGE SECTION -->
+  <!-- ============================= -->
+  <section id="registerPage">
 
-    <!-- ============================= -->
-    <!-- Contenedor de Formulario -->
-    <!-- ============================= -->
-    <!-- Este contenedor aloja el formulario de creación/edición de facturas.
-        Inicialmente está oculto y se muestra al crear o editar una factura. -->
-    <div id="formContainer" >
-      <form id="formInvoice" >
+    <!-- Invoice Form Container -->
+    <!-- Contains the invoice creation/edit form -->
+    <div id="formContainer">
+      <form id="formInvoice">
         <h3>Formulario de Registro de Documento</h3>
 
-        <!-- ============================= -->
-        <!-- Fila 1: Información básica de la factura -->
-        <!-- ============================= -->
+        <!-- Row 1: Basic invoice information -->
         <div class="row">
-          <!-- ID Documento: solo lectura -->
           <div class="col col-1">
             <label for="idDocument">ID Doc</label>
             <input type="text" id="idDocument" disabled />
           </div>
-          <!-- Número de documento -->
           <div class="col col-2">
             <label for="nroDocument">N° Doc</label>
             <input type="text" id="nroDocument" />
           </div>
-          <!-- RUC: 11 dígitos, validación automática -->
           <div class="col col-3">
             <label for="ruc">RUC</label>
             <input type="text" id="ruc" maxlength="11" />
           </div>
-          <!-- Razón social -->
           <div class="col col-3">
             <label for="legalName">Razón Social</label>
             <input type="text" id="legalName" />
           </div>
-          <!-- Fecha del documento -->
           <div class="col col-3">
             <label for="date">Fecha</label>
             <input type="date" id="date" />
           </div>
         </div>
 
-        <!-- ============================= -->
-        <!-- Fila 2: Información financiera y adicional -->
-        <!-- ============================= -->
+        <!-- Row 2: Financial and additional information -->
         <div class="row">
-          <!-- Moneda -->
           <div class="col col-1">
             <label for="currency">Moneda</label>
             <select id="currency">
@@ -113,65 +108,46 @@
               <option value="ARS">ARS</option>
             </select>
           </div>
-          <!-- Subtotal -->
           <div class="col col-1">
             <label for="subtotal">Subtotal</label>
             <input type="number" id="subtotal" step="0.01" />
           </div>
-          <!-- Porcentaje de IVA -->
           <div class="col col-1">
             <label for="percentageIVA">% IVA</label>
             <select id="percentageIVA">
               <option value="">--Selecciona--</option>
               <option value="18">18%</option>
+              <option value="10">10%</option>
               <option value="0">0%</option>
             </select>
           </div>
-          <!-- IVA calculado automáticamente: solo lectura -->
           <div class="col col-1">
             <label for="iva">IVA</label>
             <input type="text" id="iva" disabled />
           </div>
-          <!-- Total calculado automáticamente: solo lectura -->
           <div class="col col-1">
             <label for="total">Total</label>
             <input type="text" id="total" disabled />
           </div>
-
-          <!-- Centro de costo -->
           <div class="col col-2">
             <label for="centerCost">Centro de Costo</label>
-            <select id="centerCost">
-              <option value="">--Selecciona--</option>
-              <option value="Administrativo">Administrativo</option>
-              <option value="Operativo">Operativo</option>
-            </select>
+            <select id="centerCost"></select>
           </div>
-          <!-- Usuario responsable -->
           <div class="col col-1">
             <label for="user">Usuario</label>
-            <select id="user">
-              <option value="">--Selecciona--</option>
-              <option value="Juan">Juan</option>
-              <option value="Maria">Maria</option>
-            </select>
+            <select id="user"></select>
           </div>
-          <!-- Descripción del documento -->
           <div class="col col-3">
             <label for="description">Descripción</label>
             <textarea id="description"></textarea>
           </div>
-
-          <!-- Documento adjunto -->
           <div class="col col-3">
             <label for="documentFile">Documento</label>
-            <input type="file" id="documentFile" accept=".jpg,.jpeg,.png,.pdf"/>
+            <input type="file" id="documentFile" accept=".jpg,.jpeg,.png,.pdf" />
           </div>
         </div>
 
-        <!-- ============================= -->
-        <!-- Botones del formulario -->
-        <!-- ============================= -->
+        <!-- Form action buttons -->
         <div class="form-actions">
           <button type="submit" class="btn-save">Guardar</button>
           <button type="button" id="btnCancell" class="btn-cancell">Cancelar</button>
@@ -179,42 +155,37 @@
         </div>
       </form>
     </div>
-    
-  <h3 >Tabla de Registro de Documentos</h3><!-- ============================= -->
-  <!-- Contenedor de Filtros -->
-  <!-- ============================= -->
-  <div id="filterContainer" class="filter-container" >
-    <!-- Primer select fijo -->
-    <label for="filterField">Filtrar por:</label>
-    <select id="filterField" class="filter-input">
-      <option value="">--Seleccione campo--</option>
-      <option value="nroDocument">N° Doc</option>
-      <option value="ruc">RUC</option>
-      <option value="legalName">Razón Social</option>
-      <option value="date">Fecha</option>
-      <option value="currency">Moneda</option>
-      <option value="centerCost">Centro de Costo</option>
-      <option value="user">Usuario</option>
-    </select>
 
-    <!-- Segundo select/input dinámico -->
-    <div id="filterValueWrapper" class="filter-input"></div>
+    <!-- Invoice Table and Filters -->
+    <h3>Tabla de Registro de Documentos</h3>
+    <div id="filterContainer" class="filter-container">
+      <!-- Filter by field -->
+      <label for="filterField">Filtrar por:</label>
+      <select id="filterField" class="filter-input">
+        <option value="">--Seleccione campo--</option>
+        <option value="nroDocument">N° Doc</option>
+        <option value="ruc">RUC</option>
+        <option value="legalName">Razón Social</option>
+        <option value="date">Fecha</option>
+        <option value="currency">Moneda</option>
+        <option value="centerCost">Centro de Costo</option>
+        <option value="user">Usuario</option>
+      </select>
 
-    <!-- Botones de ordenamiento estáticos -->
-    <div id="sortButtonsWrapper" class="filter-buttons">
-      <button data-sort="date" data-order="desc">Más Reciente</button>
-      <button data-sort="date" data-order="asc">Más Antiguo</button>
-      <button data-sort="total" data-order="desc">Monto Mayor</button>
-      <button data-sort="total" data-order="asc">Monto Menor</button>
+      <!-- Dynamic filter input -->
+      <div id="filterValueWrapper" class="filter-input"></div>
+
+      <!-- Sort buttons -->
+      <div id="sortButtonsWrapper" class="filter-buttons">
+        <button data-sort="date" data-order="desc">Más Reciente</button>
+        <button data-sort="date" data-order="asc">Más Antiguo</button>
+        <button data-sort="total" data-order="desc">Monto Mayor</button>
+        <button data-sort="total" data-order="asc">Monto Menor</button>
+      </div>
     </div>
-  </div>
 
-    <!-- ============================= -->
-    <!-- Contenedor de Tabla -->
-    <!-- ============================= -->
-    <!-- Tabla que muestra todas las facturas registradas -->
-    <div id="tableContainer" >
-
+    <!-- Invoice Table -->
+    <div id="tableContainer">
       <table id="invoicesTable">
         <thead>
           <tr>
@@ -233,24 +204,23 @@
           </tr>
         </thead>
         <tbody id="tbody">
-          <!-- Filas generadas dinámicamente por TableModule -->
+          <!-- Rows dynamically generated by TableModule -->
         </tbody>
       </table>
 
-      <!-- Botón para agregar nueva factura -->
+      <!-- Add Invoice Button -->
       <button id="btnAddInvoice" class="btn-add-invoice">+ Agregar Factura</button>
 
-      <!-- Resumen de la tabla -->
+      <!-- Table summary -->
       <div id="invoiceSummary">
         <p><strong>Registros:</strong> <span id="recordCount">0</span></p>
         <p><strong>Total por Moneda:</strong> <span id="currencyTotal">0.00</span></p>
       </div>
     </div>
 
-</section>
+  </section>
 
-
-  <!-- Script principal de la aplicación -->
+  <!-- Main app script -->
   <script type="module" src="./src/main.js"></script>
 </body>
 </html>

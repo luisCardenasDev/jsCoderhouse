@@ -1,18 +1,35 @@
 import { getState, setState } from "../../../state/stateManager.js";
 import { calculateIVAandTotal } from "../formModule/helpers/calculations.js";
 
+/**
+ * Filter Model
+ * - Handles filter state management
+ * - Provides filtered table data based on current filter criteria
+ */
 export const FilterModel = {
+  /**
+   * Get the current filter state
+   * @returns {Object} stateFilter from global state
+   */
   getFilter: () => getState().stateFilter,
 
+  /**
+   * Update the filter state with new criteria
+   * @param {Object} newFilter - Partial filter object to merge
+   */
   setFilter: (newFilter) => {
     setState({
       stateFilter: {
         ...getState().stateFilter,
-        ...newFilter
-      }
+        ...newFilter,
+      },
     });
   },
 
+  /**
+   * Returns filtered table data based on current filter state
+   * @returns {Array} Filtered table rows
+   */
   getFilteredData: () => {
     const { stateTable, stateFilter } = getState();
     const tableData = stateTable.data;
@@ -29,10 +46,12 @@ export const FilterModel = {
         break;
 
       case "total":
-        filtered = filtered.filter(r => {
+        filtered = filtered.filter((r) => {
           const { totalCalc } = calculateIVAandTotal(r.subtotal, r.percentageIVA);
+
           if (values.start && totalCalc < parseFloat(values.start)) return false;
           if (values.end && totalCalc > parseFloat(values.end)) return false;
+
           return true;
         });
         break;
@@ -46,10 +65,12 @@ export const FilterModel = {
 
       case "ruc":
       case "nroDocument":
-        if (values.value) filtered = filtered.filter(r => (r[field] || "").toLowerCase().includes(values.value.toLowerCase()));
+        if (values.value) {
+          filtered = filtered.filter(r => (r[field] || "").toLowerCase().includes(values.value.toLowerCase()));
+        }
         break;
     }
 
     return filtered;
-  }
+  },
 };

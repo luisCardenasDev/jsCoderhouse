@@ -1,17 +1,25 @@
+// tableConsts.js
 
-
-
- export const refsTableElements={  
-  container: document.getElementById("tableContainer"),
-  table: document.getElementById("invoicesTable"),
-  tbody: document.getElementById("tbody"),
-  selectAll: document.getElementById("selectAll"),
-  recordCount: document.getElementById("recordCount"),
-  currencyTotal: document.getElementById("currencyTotal"),
-  addButton: document.getElementById("btnAddInvoice")
+/**
+ * refsTableElements
+ * - References to HTML elements of the invoices table and related controls
+ */
+export const refsTableElements = {  
+  container: document.getElementById("tableContainer"),   // Wrapper container for the table
+  table: document.getElementById("invoicesTable"),        // <table> element
+  tbody: document.getElementById("tbody"),               // <tbody> where rows will be rendered
+  selectAll: document.getElementById("selectAll"),       // Checkbox to select/deselect all rows
+  recordCount: document.getElementById("recordCount"),   // Element to show number of records
+  currencyTotal: document.getElementById("currencyTotal"), // Container to show totals by currency
+  addButton: document.getElementById("btnAddInvoice")    // Button to add a new invoice
 };
 
-export const refsTableInvoice={
+/**
+ * refsTableInvoice
+ * - Keys corresponding to invoice object properties
+ * - Useful for mapping data to table columns
+ */
+export const refsTableInvoice = {
   idDocument: "idDocument",
   nroDocument: "nroDocument",
   ruc: "ruc",
@@ -28,16 +36,37 @@ export const refsTableInvoice={
   total: "total",
 };
 
-export const refsTableHeader={
+/**
+ * refsTableHeader
+ * - Display labels for each column in the table header
+ * - Order defines the rendering sequence in renderRows
+ */
+export const refsTableHeader = {
   nroDocument: "N° Documento",
   ruc: "RUC",
   legalName: "Razón Social",
   date: "Fecha",
   total: "Total",
-    currency: "Moneda",
+  currency: "Moneda",
   centerCost: "Centro de Costo",
   user: "Usuario",
   description: "Descripción",
   documentFile: "Archivo",
-}
+};
 
+export const initialDataForm = {
+  idDocument: "",
+  nroDocument: "",
+  ruc: "",
+  legalName: "",
+  date: "",
+  description: "",
+  centerCost: "",
+  user: "",
+  currency: "",
+  documentFile: "",
+  subtotal: 0,
+  percentageIVA: 0,
+  iva: 0,
+  total: 0,
+};

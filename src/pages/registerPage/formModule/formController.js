@@ -1,17 +1,28 @@
-// formController.js
 import { getState, setState, subscribe } from "../../../state/stateManager.js";
 import { FormView } from "./formView.js";
 import { validateInvoiceForm } from "./helpers/validators.js";
+import { refsFormInputs } from "./formConsts/formConsts.js";
 
+/**
+ * FormController
+ * - Handles invoice form interactions, validation, and state updates
+ * - Connects the FormView with global state management
+ */
 export function FormController() {
   const view = FormView();
 
   // ======================
-  // === FUNCIONES INTERNAS ===
+  // === INTERNAL FUNCTIONS ===
   // ======================
 
+  /**
+   * Validates the form using the helper
+   * - Adds 'valid' or 'invalid' CSS classes for visual feedback
+   * @returns {boolean} True if form is valid
+   */
   function validateForm() {
     const { isValid, errors } = validateInvoiceForm(view.refsFormInputs);
+
     Object.entries(view.refsFormInputs).forEach(([id, input]) => {
       if (errors[id]) {
         input.classList.add("invalid");
@@ -21,28 +32,32 @@ export function FormController() {
         input.classList.remove("invalid");
       }
     });
+
     return isValid;
   }
 
-
-
+  /**
+   * Saves form data into global state
+   * - Only saves if form passes validation
+   * - Updates both form state and table data
+   */
   function saveData() {
-    if (!validateForm()) return console.warn("Formulario inválido");
+    if (!validateForm()) return console.warn("Form is invalid");
 
     const { stateForm, stateTable } = getState();
 
-    // Construye el objeto con los valores del formulario
+    // Build data object from input values
     const data = Object.values(view.refsFormInputs).reduce((acc, input) => {
       acc[input.id] = input.value;
       return acc;
     }, {});
 
-    // Actualiza el estado
+    // Update global state
     setState({
       stateForm: {
         ...stateForm,
         isOpen: false,
-        isReadonly:false,
+        isReadonly: false,
         currentData: data,
       },
       stateTable: {
@@ -52,56 +67,58 @@ export function FormController() {
     });
   }
 
-function render() {
+  /**
+   * Renders the form based on global state
+   * - Shows/hides form
+   * - Loads current data
+   * - Toggles input readonly state
+   */
+  function render() {
+    const { stateForm } = getState();
+    const { isOpen, isReadonly, currentData } = stateForm;
 
+    if (!isOpen) {
+      view.formInvoice.style.display = "none";
+      return;
+    }
 
-  const { stateForm } = getState();
-
-  const { isOpen, isReadonly, currentData } = stateForm;
-
-  // Si el formulario no está abierto, ocultar y salir
-  if (!isOpen) {
-
-    view.formInvoice.style.display = "none";
-    return;
+    // Show form and populate data
+    view.formInvoice.style.display = "block";
+    view.load(currentData);
+    view.toggleFormInputs(isReadonly);
   }
 
-  // Mostrar formulario y cargar datos
-  view.formInvoice.style.display = "block";
-  view.load(currentData);
-  view.toggleFormInputs(isReadonly);
-
-  
-}
-  
-
   // ======================
-  // === EVENTOS ===
+  // === EVENT LISTENERS ===
   // ======================
 
+  // Auto-calculate fields when subtotal or IVA percentage changes
   view.subtotal.addEventListener("input", view.calculateFields);
   view.percentageIVA.addEventListener("input", view.calculateFields);
 
+  // Form submission
   view.formInvoice.addEventListener("submit", e => {
     e.preventDefault();
     saveData();
   });
 
+  // Cancel button closes the form and resets current data
   view.btnCancell.addEventListener("click", e => {
     e.preventDefault();
     setState({
       stateForm: {
         ...getState().stateForm,
         isOpen: false,
-        isReadonly:false,
+        isReadonly: false,
         currentData: null,
       },
     });
   });
 
+  // Edit button enables inputs and opens the form
   view.btnEdit.addEventListener("click", e => {
     e.preventDefault();
-    view.toggleFormInputs(false)
+    view.toggleFormInputs(false);
     setState({
       stateForm: {
         ...getState().stateForm,
@@ -109,17 +126,18 @@ function render() {
         isReadonly: false,
       },
     });
-    console.log("llega btnEdit")
-    console.log(getState().stateForm) 
+
   });
 
   // ======================
-  // === SUSCRIPCIÓN REACTIVA ===
+  // === REACTIVE SUBSCRIPTION ===
   // ======================
+
+  // Automatically re-render form when state changes
   subscribe(render);
 
   // ======================
-  // === MÉTODOS EXPUESTOS ===
+  // === EXPOSED METHODS ===
   // ======================
   return {
     render,

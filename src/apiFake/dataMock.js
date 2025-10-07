@@ -1,3 +1,11 @@
+// dataMock.js
+
+/**
+ * Mocked invoice dataset used for development and testing purposes.
+ * Each object represents a simplified invoice entity containing
+ * essential billing and accounting information.
+ */
+
 export const mockInvoices = [
   {
     idDocument: "INV-001",
@@ -6,14 +14,14 @@ export const mockInvoices = [
     legalName: "Tech Solutions SAC",
     date: "2025-01-15",
     description: "Compra de equipos informáticos",
-    centerCost: "IT-001",
+    centerCost: "IT",
     user: "lcardenas",
     currency: "PEN",
     documentFile: "factura_001.pdf",
     subtotal: 4200,
     percentageIVA: 18,
     iva: 756,
-    total: 4956
+    total: 4956,
   },
   {
     idDocument: "INV-002",
@@ -22,14 +30,14 @@ export const mockInvoices = [
     legalName: "Servicios Generales Lima SAC",
     date: "2025-01-20",
     description: "Mantenimiento de oficinas",
-    centerCost: "ADM-002",
+    centerCost: "Administrativo",
     user: "jrojas",
     currency: "PEN",
     documentFile: "factura_002.pdf",
     subtotal: 2500,
     percentageIVA: 18,
     iva: 450,
-    total: 2950
+    total: 2950,
   },
   {
     idDocument: "INV-003",
@@ -38,14 +46,14 @@ export const mockInvoices = [
     legalName: "Distribuidora Andina SRL",
     date: "2025-02-01",
     description: "Compra de insumos de limpieza",
-    centerCost: "LOG-004",
+    centerCost: "Logística",
     user: "mperez",
     currency: "PEN",
     documentFile: "factura_003.pdf",
     subtotal: 890,
     percentageIVA: 18,
     iva: 160.2,
-    total: 1050.2
+    total: 1050.2,
   },
   {
     idDocument: "INV-004",
@@ -54,14 +62,14 @@ export const mockInvoices = [
     legalName: "Soluciones Digitales SAC",
     date: "2025-02-10",
     description: "Suscripción software contable",
-    centerCost: "FIN-001",
+    centerCost: "Finanzas",
     user: "lcardenas",
     currency: "USD",
     documentFile: "factura_004.pdf",
     subtotal: 300,
     percentageIVA: 18,
     iva: 54,
-    total: 354
+    total: 354,
   },
   {
     idDocument: "INV-005",
@@ -70,14 +78,14 @@ export const mockInvoices = [
     legalName: "Consultores Empresariales EIRL",
     date: "2025-02-18",
     description: "Asesoría en gestión financiera",
-    centerCost: "FIN-002",
+    centerCost: "Finanzas",
     user: "jrojas",
     currency: "PEN",
     documentFile: "factura_005.pdf",
     subtotal: 1600,
     percentageIVA: 18,
     iva: 288,
-    total: 1888
+    total: 1888,
   },
   {
     idDocument: "INV-006",
@@ -86,14 +94,14 @@ export const mockInvoices = [
     legalName: "Logística Express SAC",
     date: "2025-02-22",
     description: "Transporte de mercancías",
-    centerCost: "LOG-001",
+    centerCost: "Logística",
     user: "mperez",
     currency: "PEN",
     documentFile: "factura_006.pdf",
     subtotal: 950,
     percentageIVA: 18,
     iva: 171,
-    total: 1121
+    total: 1121,
   },
   {
     idDocument: "INV-007",
@@ -102,14 +110,14 @@ export const mockInvoices = [
     legalName: "Inversiones Pacífico SAC",
     date: "2025-03-01",
     description: "Alquiler de oficina",
-    centerCost: "ADM-001",
-    user: "lcardenas",
+    centerCost: "Administrativo",
+    user: "jrojas",
     currency: "PEN",
     documentFile: "factura_007.pdf",
     subtotal: 3000,
     percentageIVA: 18,
     iva: 540,
-    total: 3540
+    total: 3540,
   },
   {
     idDocument: "INV-008",
@@ -118,14 +126,14 @@ export const mockInvoices = [
     legalName: "Publicidad Creativa SAC",
     date: "2025-03-08",
     description: "Campaña publicitaria digital",
-    centerCost: "MKT-002",
-    user: "mperez",
+    centerCost: "Marketing",
+    user: "lucia",
     currency: "PEN",
     documentFile: "factura_008.pdf",
     subtotal: 4800,
     percentageIVA: 18,
     iva: 864,
-    total: 5664
+    total: 5664,
   },
   {
     idDocument: "INV-009",
@@ -134,14 +142,14 @@ export const mockInvoices = [
     legalName: "Importaciones del Sur SAC",
     date: "2025-03-14",
     description: "Compra de repuestos eléctricos",
-    centerCost: "LOG-003",
-    user: "jrojas",
+    centerCost: "Logística",
+    user: "mperez",
     currency: "PEN",
     documentFile: "factura_009.pdf",
     subtotal: 1350,
     percentageIVA: 18,
     iva: 243,
-    total: 1593
+    total: 1593,
   },
   {
     idDocument: "INV-010",
@@ -150,13 +158,13 @@ export const mockInvoices = [
     legalName: "Café Express SRL",
     date: "2025-03-20",
     description: "Servicio de catering interno",
-    centerCost: "ADM-004",
-    user: "mperez",
+    centerCost: "Administrativo",
+    user: "jrojas",
     currency: "PEN",
     documentFile: "factura_010.pdf",
     subtotal: 720,
     percentageIVA: 18,
     iva: 129.6,
-    total: 849.6
-  }
+    total: 849.6,
+  },
 ];
