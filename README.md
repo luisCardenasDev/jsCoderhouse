@@ -15,19 +15,20 @@ The interface is designed for Spanish-speaking users and the code is modular, al
 ###### **Features of this first iteration**
 
 **Routing system (Router module) for single-page navigation:**
-*Hash-based routing (#startPage, #registerPage).
-*Dynamic section activation using active class.
-*Prevents revisiting the landing page once accessed.
-*Automatically runs the logic of the active page module.
-
-* Login modal with email and password validation (simulated).
+* Hash-based routing (#startPage, #registerPage).
+* Dynamic section activation using active class.
+* Prevents revisiting the landing page once accessed.
+* Automatically runs the logic of the active page module.
   
-** Invoice registration/edit form:**
+ Login modal with email and password validation (simulated).
+  
+**Invoice registration/edit form:**
 * Auto-generated document ID (read-only).
 * Automatic calculation of VAT and total based on subtotal and VAT percentage.
 * Dynamic selects for currency, cost center, and user.
   
 **Invoice table with:**
+
 * Dynamic filtering by selected fields.
 * View, edit, and delete buttons for each record.
 * Automatic persistence in localStorage.
@@ -101,14 +102,14 @@ src/
 
 **The system uses hash-based routes:**
 
-*#startPage → Landing/login page
-*#registerPage → Invoice management page
+* #startPage → Landing/login page
+* #registerPage → Invoice management page
 
 **When navigating between routes:**
 
-*All sections are hidden, and the active one gets the class active.
-*Each page module executes its specific initialization logic.
-*startPage can only be visited once (controlled by the router).
+* All sections are hidden, and the active one gets the class active.
+* Each page module executes its specific initialization logic.
+* startPage can only be visited once (controlled by the router).
 
 **2. Login**
 
@@ -164,28 +165,15 @@ Filter:
 *  	The table updates dynamically based on the filter.
 
 
-
-Sort:
-
-
-
-Use sorting buttons:
-
-*  	Newest / Oldest (by date).
-*  	Highest / Lowest (by total).
-*  	The table updates automatically according to the selected criteria.
-
-
-
 **6. Table Summary**
 
 
 
 Below the table, a summary displays:
 
-&nbsp;	Records: Number of visible invoices.
+* Records: Number of visible invoices.
 
-&nbsp;	Total by Currency: Sum of totals grouped by currency.
+* Total by Currency: Sum of totals grouped by currency.
 
 
 
@@ -237,7 +225,7 @@ Below the table, a summary displays:
 
 ###### **Future Improvements**
 
-
+* Sorting
 * PDF export of invoices
 * Fully responsive design for mobile devices
 * Integration with remote databases
