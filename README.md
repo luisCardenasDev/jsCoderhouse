@@ -14,20 +14,28 @@ The interface is designed for Spanish-speaking users and the code is modular, al
 
 ###### **Features of this first iteration**
 
+**Routing system (Router module) for single-page navigation:**
+*Hash-based routing (#startPage, #registerPage).
+*Dynamic section activation using active class.
+*Prevents revisiting the landing page once accessed.
+*Automatically runs the logic of the active page module.
+
 * Login modal with email and password validation (simulated).
-* Invoice registration/edit form:
+  
+** Invoice registration/edit form:**
 * Auto-generated document ID (read-only).
 * Automatic calculation of VAT and total based on subtotal and VAT percentage.
 * Dynamic selects for currency, cost center, and user.
-* Invoice table with:
+  
+**Invoice table with:**
 * Dynamic filtering by selected fields.
-* Sorting by date or total amount.
 * View, edit, and delete buttons for each record.
 * Automatic persistence in localStorage.
+  
 * Input validation with visual feedback (is-valid / is-invalid).
 * Modular code following a simplified MVC pattern.
 * English comments in code for easier developer comprehension.
-* 
+  
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
@@ -46,6 +54,10 @@ src/
 ├─ state/
 
 │  └─ stateManager.js       # Global state management and subscription
+
+├─ router/
+
+│  └─ router.js             # Hash-based navigation controller
 
 ├─ utils/
 
@@ -85,9 +97,20 @@ src/
 
 ###### **Usage Step by Step**
 
+**1. Routing**
 
+**The system uses hash-based routes:**
 
-**1. Login**
+*#startPage → Landing/login page
+*#registerPage → Invoice management page
+
+**When navigating between routes:**
+
+*All sections are hidden, and the active one gets the class active.
+*Each page module executes its specific initialization logic.
+*startPage can only be visited once (controlled by the router).
+
+**2. Login**
 
 
 
@@ -100,7 +123,7 @@ src/
 
 
 
-**2. Create a New Invoice**
+**3. Create a New Invoice**
 
 
 
@@ -118,7 +141,7 @@ src/
 
 
 
-**3. Edit or View Existing Invoices**
+**4. Edit or View Existing Invoices**
 
 
 
@@ -130,7 +153,7 @@ Each table row includes buttons:
 
 
 
-**4. Filter and Sort Invoices**
+**5. Filter and Sort Invoices**
 
 
 
@@ -154,7 +177,7 @@ Use sorting buttons:
 
 
 
-**5. Table Summary**
+**6. Table Summary**
 
 
 
@@ -166,7 +189,7 @@ Below the table, a summary displays:
 
 
 
-**6. Persistence**
+**7. Persistence**
 
 •	All changes are automatically saved in localStorage.
 
@@ -205,6 +228,8 @@ Below the table, a summary displays:
 •	LocalStorage for persistence
 
 •	Vanilla JS modular approach
+
+•	Hash-based Router for single-page navigation
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
