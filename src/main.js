@@ -1,15 +1,8 @@
-import RegisterPage from "./pages/registerPage/registerPage.js";
-import LandingPageModule from "./pages/landingPage/landingPageModule.js";
-import router from "./router.js/router.js";
-
-
-router();
+import { Router } from "./router/router.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const landingApp = LandingPageModule()
+  Router(); // inicializa todo el sistema de rutas
 });
-
-RegisterPage()
 
 
 

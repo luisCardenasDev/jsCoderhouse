@@ -1,31 +1,45 @@
-// validators.js
 export function validateInvoiceForm(refsForm) {
-  const requiredFields = [
-    "nroDocument","ruc","legalName","date",
-    "subtotal","percentageIVA","description",
-    "centerCost","user","currency"
-  ];
+  
+  const rules = {
+    nroDocument: { required: true },
+    ruc: { required: true, pattern: /^\d{11}$/, message: "El RUC debe tener 11 dígitos numéricos" },
+    legalName: { required: true },
+    date: { required: true },
+    subtotal: { required: true },
+    percentageIVA: { required: true },
+    description: { required: true },
+    centerCost: { required: true },
+    user: { required: true },
+    currency: { required: true },
+  };
 
-  let allValid = true;
+  const errors = {};
+  const validFields = [];
 
-  requiredFields.forEach(id => {
+  for (const [id, rule] of Object.entries(rules)) {
     const input = refsForm[id];
-    const value = (input?.value || "").trim();
+    if (!input) continue; // campo no encontrado, evitar error
+    const value = (input.value || "").trim();
 
-    if (!value) {
-      input.classList.add("invalid");
-      input.classList.remove("valid");
-      allValid = false;
-    } else if (id === "ruc" && input.value.replace(/\D/g,'').length !== 11) {
-      input.classList.add("invalid");
-      input.classList.remove("valid");
-      allValid = false;
-      alert("RUC inválido: debe tener 11 dígitos");
-    } else {
-      input.classList.add("valid");
-      input.classList.remove("invalid");
+    // 1️⃣ Requerido
+    if (rule.required && !value) {
+      errors[id] = "Campo obligatorio";
+      continue;
     }
-  });
 
-  return allValid;
+    // 2️⃣ Patrón (ej: RUC)
+    if (rule.pattern && !rule.pattern.test(value)) {
+      errors[id] = rule.message || "Formato inválido";
+      continue;
+    }
+
+    // Si pasa todas las validaciones
+    validFields.push(id);
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors,
+    validFields,
+  };
 }

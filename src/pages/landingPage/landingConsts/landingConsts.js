@@ -1,5 +1,5 @@
 export const landingRef ={
-
+    container: document.getElementById("startPage"),
     loginModal : document.getElementById("loginModal"),
     openLogin : document.getElementById("openLogin"),
     btnStart  : document.getElementById("btnStart"),

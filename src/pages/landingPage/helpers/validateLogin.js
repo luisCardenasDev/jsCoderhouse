@@ -1,41 +1,75 @@
-import {landingRef} from "../landingConsts/landingConsts.js";
+// validateLoginModule.js
+import { landingRef } from "../landingConsts/landingConsts.js";
 
+export function ValidateLoginModule() {
+  const {
+    loginForm,
+    loginModal,
+    emailInput,
+    passwordInput,
+    emailError,
+    passwordError,
+  } = landingRef;
 
-export default function ValidateLogin(){
+  const state = {
+    isValid: false,
+    errors: {},
+  };
 
-  const {loginForm,loginModal,emailInput,passwordInput,emailError,passwordError} = landingRef;
+  function setErrors(errors) {
+    state.errors = errors;
+    state.isValid = Object.keys(errors).length === 0;
+    renderErrors();
+  }
 
+  function getState() {
+    return { ...state };
+  }
 
-      // Validación de formulario
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    let isValid = true;
-
-    // Resetear errores
+  function renderErrors() {
     emailError.style.display = "none";
     passwordError.style.display = "none";
 
-    if (!emailInput.value.trim()) {
-      emailError.textContent = "El correo es obligatorio";
+    if (state.errors.email) {
+      emailError.textContent = state.errors.email;
       emailError.style.display = "block";
-      isValid = false;
+    }
+
+    if (state.errors.password) {
+      passwordError.textContent = state.errors.password;
+      passwordError.style.display = "block";
+    }
+  }
+
+  function validateForm() {
+    const errors = {};
+
+    if (!emailInput.value.trim()) {
+      errors.email = "El correo es obligatorio";
     }
 
     if (!passwordInput.value.trim()) {
-      passwordError.textContent = "La contraseña es obligatoria";
-      passwordError.style.display = "block";
-      isValid = false;
+      errors.password = "La contraseña es obligatoria";
     } else if (passwordInput.value.length < 6) {
-      passwordError.textContent = "La contraseña debe tener al menos 6 caracteres";
-      passwordError.style.display = "block";
-      isValid = false;
+      errors.password = "La contraseña debe tener al menos 6 caracteres";
     }
 
-    if (isValid) {
+    setErrors(errors);
+    return state.isValid;
+  }
+
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (validateForm()) {
       alert("Login exitoso (simulado).");
       loginModal.style.display = "none";
       loginForm.reset();
-      location.hash = 'registerPage'; // esto dispara hashchange automáticamente 
+      location.hash = "registerPage";
     }
   });
+
+  return {
+    validateForm,
+    getState,
+  };
 }

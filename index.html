@@ -7,7 +7,7 @@
 </head>
 <body>
 
-  <section id="startPage">
+  <section id="startPage" class="active">
   <!-- Header -->
     <header class="site-header">
       <div class="container header-inner">
@@ -22,7 +22,7 @@
     </header>
 
     <!-- Hero -->
-    <section class="hero">
+    <div class="hero">
       <div class="container hero-inner">
         <div class="hero-text">
           <h1>Controla tus gastos sin complicaciones</h1>
@@ -33,7 +33,7 @@
           <img src="./src/assets/accounter2.png" alt="App gastos ilustración">
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Login Modal -->
     <div class="modal" id="loginModal">
@@ -215,7 +215,7 @@
     <!-- Tabla que muestra todas las facturas registradas -->
     <div id="tableContainer" >
 
-      <table id="invoiceTable">
+      <table id="invoicesTable">
         <thead>
           <tr>
             <th><input type="checkbox" id="selectAll"></th>
@@ -232,7 +232,7 @@
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody">
           <!-- Filas generadas dinámicamente por TableModule -->
         </tbody>
       </table>

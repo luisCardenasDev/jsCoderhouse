@@ -1,7 +1,5 @@
 // refsForm.js
-export const refsForm = {
-  formContainer: document.getElementById("formContainer"),
-  formInvoice: document.getElementById("formInvoice"),
+export const refsFormInputs = {
   idDocument: document.getElementById("idDocument"),
   iva: document.getElementById("iva"),
   subtotal: document.getElementById("subtotal"),
@@ -16,6 +14,51 @@ export const refsForm = {
   user: document.getElementById("user"),
   currency: document.getElementById("currency"),
   documentFile: document.getElementById("documentFile"),
-  btnEdit: document.getElementById("btnEdit"),
-  btnCancell: document.getElementById("btnCancell"),
 };
+
+export const refsFormElements = {
+  formContainer: document.getElementById("formContainer"),
+  formInvoice: document.getElementById("formInvoice"),
+  btnEdit: document.getElementById("btnEdit"),
+  btnCancell: document.getElementById("btnCancell"),  
+}
+
+export const initialDataForm={
+  idDocument: "",
+  nroDocument:"",
+  ruc:"",
+  legalName:"",
+  date:"",
+  description:"",
+  centerCost:"",
+  user:"",
+  currency:"",
+  documentFile:"",
+  subtotal:0,
+  percentageIVA:0,
+  iva:0,
+  total:0,
+}
+
+export const fieldsDataState=[  idDocument,
+  nroDocument,
+  ruc,
+  legalName,
+  date,
+  description,
+  centerCost,
+  user,
+  currency,
+  documentFile,
+  subtotal,
+  percentageIVA,
+  iva,
+  total]
+
+
+
+
+
+
+
+  

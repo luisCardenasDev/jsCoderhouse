@@ -1,29 +1,39 @@
+// renderRows.js
 import { formatNumber } from "../../../../utils/utils.js";
-import {tableFields} from "../tableConsts/tableConsts.js";
+import { refsTableHeader } from "../tableConsts/tableConsts.js";
 
-export function renderRow(item) {
-  const tr = document.createElement("tr");
-  tr.dataset.id = item.idDocument;
+/**
+ * Recibe un array de items y devuelve un string HTML con todas las filas
+ * usando el orden de campos definido en refsTableHeader
+ */
+export function renderRows(items) {
 
-  const subtotal = parseFloat(item.subtotal) || 0;
-  const iva = parseFloat(item.iva) || subtotal * ((parseFloat(item.percentageIVA) || 0)/100);
-  const total = subtotal + iva;
+  return items
+    .map(item => {
+      const subtotal = parseFloat(item.subtotal) || 0;
+      const iva = parseFloat(item.iva) || subtotal * ((parseFloat(item.percentageIVA) || 0) / 100);
+      const total = subtotal + iva;
 
-  const rowHtml = `<td><input type="checkbox" class="row-checkbox"></td>` +
-    tableFields
-      .filter(f => !["idDocument","subtotal","percentageIVA","iva"].includes(f.id))
-      .map(f => {
-        if (f.id === "total") return `<td class="td-total">${formatNumber(total)}</td>`;
-        if (f.id === "currency") return `<td class="td-currency">${item.currency || ""}</td>`;
-        if (f.id === "documentFile") return `<td>${item.documentFile ? `<a href="${item.documentFile}" target="_blank">Ver</a>` : ""}</td>`;
-        return `<td>${item[f.id] || ""}</td>`;
-      }).join("") +
-    `<td>
-      <button class="btn-view" data-id="${item.idDocument}">Ver</button>
-      <button class="btn-delete" data-id="${item.idDocument}">Eliminar</button>
-    </td>`;
+      // Checkbox inicial
+      let rowHtml = `<td><input type="checkbox" class="row-checkbox"></td>`;
 
-  tr.innerHTML = rowHtml;
-  return tr;
+      // Itera sobre las keys de refsTableHeader para mantener el orden correcto
+      Object.keys(refsTableHeader).forEach(key => {
+        if (key === "total") rowHtml += `<td class="td-total">${formatNumber(total)}</td>`;
+        else if (key === "currency") rowHtml += `<td class="td-currency">${item.currency || ""}</td>`;
+        else if (key === "documentFile") rowHtml += `<td>${item.documentFile ? `<a href="${item.documentFile}" target="_blank">Ver</a>` : ""}</td>`;
+        else rowHtml += `<td>${item[key] || ""}</td>`;
+      });
+
+      // Botones de acción por fila
+      rowHtml += `<td>
+        <button class="btn-view" data-id="${item.idDocument}">Ver</button>
+        <button class="btn-delete" data-id="${item.idDocument}">Eliminar</button>
+      </td>`;
+
+      return `<tr data-id="${item.idDocument}">${rowHtml}</tr>`;
+    })
+    .join(""); // Une todas las filas en un único string HTML
 }
+
 

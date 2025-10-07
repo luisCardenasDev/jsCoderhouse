@@ -1,40 +1,50 @@
-import ValidateLogin from "./helpers/validateLogin.js";
-import {landingRef} from "./landingConsts/landingConsts.js";
+// landingPageModule.js
+import { ValidateLoginModule } from "./helpers/validateLogin.js";
+import { landingRef } from "./landingConsts/landingConsts.js";
 
-export default  function LandingPageModule(){
+export default function LandingPageModule() {
+  const { container, openLogin, btnStart, loginModal, closeLogin } = landingRef;
 
-const {openLogin,btnStart,loginModal,closeLogin} = landingRef;
+  // ======================
+  // === MODEL ===
+  // ======================
+  let state = {
+    modalOpen: false,
+  };
 
-  // Abrir modal
-  openLogin.addEventListener("click", () => {
-    loginModal.style.display = "flex";
-  });
+  function setState(newState) {
+    state = { ...state, ...newState };
+    render();
+  }
 
-  btnStart.addEventListener("click", () => {
-    loginModal.style.display = "flex";
-  });
+  function getState() {
+    return { ...state };
+  }
 
-  // Cerrar modal
-  closeLogin.addEventListener("click", () => {
-    loginModal.style.display = "none";
-  });
+  // ======================
+  // === VIEW ===
+  // ======================
+  function render() {
+    loginModal.style.display = state.modalOpen ? "flex" : "none";
+  }
 
+  // ======================
+  // === CONTROLLER ===
+  // ======================
+  openLogin.addEventListener("click", () => setState({ modalOpen: true }));
+  btnStart.addEventListener("click", () => setState({ modalOpen: true }));
+  closeLogin.addEventListener("click", () => setState({ modalOpen: false }));
 
-  ValidateLogin();
-
-
-  // Cerrar modal al hacer click afuera
   window.addEventListener("click", (e) => {
-    if (e.target === loginModal) {
-      loginModal.style.display = "none";
- 
-    }
+    if (e.target === loginModal) setState({ modalOpen: false });
   });
 
+  // 🔹 Inicializa validación de login y pasa callback
+  ValidateLoginModule(
+      setState({ modalOpen: false }
+      )
+  );
+
+  // Render inicial
+  render();
 }
-
-
-
-
-
-

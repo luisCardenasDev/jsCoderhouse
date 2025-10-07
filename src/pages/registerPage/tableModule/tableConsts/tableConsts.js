@@ -1,33 +1,43 @@
 
-export const tableFields = [
-  { id: "idDocument" },
-  { id: "nroDocument" },
-  { id: "ruc" },
-  { id: "legalName" },
-  { id: "date" },
-  { id: "subtotal" },
-  { id: "percentageIVA" },
-  { id: "iva" },
-  { id: "total" },
-  { id: "currency" },
-  { id: "centerCost" },
-  { id: "user" },
-  { id: "description" },
-  { id: "documentFile" }
-];
 
 
-export function getTableRefs() {
-  const container = document.getElementById("tableContainer");
-  const table = container.querySelector("#invoiceTable");
+ export const refsTableElements={  
+  container: document.getElementById("tableContainer"),
+  table: document.getElementById("invoicesTable"),
+  tbody: document.getElementById("tbody"),
+  selectAll: document.getElementById("selectAll"),
+  recordCount: document.getElementById("recordCount"),
+  currencyTotal: document.getElementById("currencyTotal"),
+  addButton: document.getElementById("btnAddInvoice")
+};
 
-  return {
-    container,
-    table,
-    tbody: table.querySelector("tbody"),
-    selectAll: table.querySelector("#selectAll"),
-    recordCount: container.querySelector("#recordCount"),
-    currencyTotal: container.querySelector("#currencyTotal"),
-    addButton: container.querySelector("#btnAddInvoice")
-  };
+export const refsTableInvoice={
+  idDocument: "idDocument",
+  nroDocument: "nroDocument",
+  ruc: "ruc",
+  legalName: "legalName",
+  date: "date",
+  description: "description",
+  centerCost: "centerCost",
+  user: "user",
+  currency: "currency",
+  documentFile: "documentFile",
+  subtotal: "subtotal",
+  percentageIVA: "percentageIVA",
+  iva: "iva",
+  total: "total",
+};
+
+export const refsTableHeader={
+  nroDocument: "N° Documento",
+  ruc: "RUC",
+  legalName: "Razón Social",
+  date: "Fecha",
+  total: "Total",
+    currency: "Moneda",
+  centerCost: "Centro de Costo",
+  user: "Usuario",
+  description: "Descripción",
+  documentFile: "Archivo",
 }
+
