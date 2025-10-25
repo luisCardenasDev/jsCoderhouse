@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario Factura</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================= -->
+  <!-- START PAGE SECTION -->
+  <!-- ============================= -->
+  <section id="startPage" class="active">
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="logo">MiGastos</div>
+        <nav class="nav-menu">
+          <a href="#">Inicio</a>
+          <a href="#">Características</a>
+          <a href="#">Contacto</a>
+          <button class="btn-login" id="openLogin">Iniciar sesión</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>Controla tus gastos sin complicaciones</h1>
+          <p>Registra, analiza y optimiza tus finanzas desde un solo lugar.</p>
+          <button class="btn-primary" id="btnStart">Comenzar ahora</button>
+        </div>
+        <div class="hero-image">
+          <img src="./src/assets/accounter2.png" alt="App gastos ilustración">
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+      <div class="modal-content">
+        <span class="close" id="closeLogin">&times;</span>
+        <h2>Iniciar Sesión</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" />
+            <small class="error-message" id="emailError"></small>
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" />
+            <small class="error-message" id="passwordError"></small>
+          </div>
+          <button type="submit" class="btn-primary">Ingresar</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================= -->
+  <!-- REGISTER PAGE SECTION -->
+  <!-- ============================= -->
+  <section id="registerPage">
+
+    <!-- Invoice Form Container -->
+    <!-- Contains the invoice creation/edit form -->
+    <div id="formContainer">
+      <form id="formInvoice">
+        <h3>Formulario de Registro de Documento</h3>
+
+        <!-- Row 1: Basic invoice information -->
+        <div class="row">
+          <div class="col col-1">
+            <label for="idDocument">ID Doc</label>
+            <input type="text" id="idDocument" disabled />
+          </div>
+          <div class="col col-2">
+            <label for="nroDocument">N° Doc</label>
+            <input type="text" id="nroDocument" />
+          </div>
+          <div class="col col-3">
+            <label for="ruc">RUC</label>
+            <input type="text" id="ruc" maxlength="11" />
+          </div>
+          <div class="col col-3">
+            <label for="legalName">Razón Social</label>
+            <input type="text" id="legalName" />
+          </div>
+          <div class="col col-3">
+            <label for="date">Fecha</label>
+            <input type="date" id="date" />
+          </div>
+        </div>
+
+        <!-- Row 2: Financial and additional information -->
+        <div class="row">
+          <div class="col col-1">
+            <label for="currency">Moneda</label>
+            <select id="currency">
+              <option value="">--Selecciona--</option>
+              <option value="PEN">PEN</option>
+              <option value="USD">USD</option>
+              <option value="ARS">ARS</option>
+            </select>
+          </div>
+          <div class="col col-1">
+            <label for="subtotal">Subtotal</label>
+            <input type="number" id="subtotal" step="0.01" />
+          </div>
+          <div class="col col-1">
+            <label for="percentageIVA">% IVA</label>
+            <select id="percentageIVA">
+              <option value="">--Selecciona--</option>
+              <option value="18">18%</option>
+              <option value="10">10%</option>
+              <option value="0">0%</option>
+            </select>
+          </div>
+          <div class="col col-1">
+            <label for="iva">IVA</label>
+            <input type="text" id="iva" disabled />
+          </div>
+          <div class="col col-1">
+            <label for="total">Total</label>
+            <input type="text" id="total" disabled />
+          </div>
+          <div class="col col-2">
+            <label for="centerCost">Centro de Costo</label>
+            <select id="centerCost"></select>
+          </div>
+          <div class="col col-1">
+            <label for="user">Usuario</label>
+            <select id="user"></select>
+          </div>
+          <div class="col col-3">
+            <label for="description">Descripción</label>
+            <textarea id="description"></textarea>
+          </div>
+          <div class="col col-3">
+            <label for="documentFile">Documento</label>
+            <input type="file" id="documentFile" accept=".jpg,.jpeg,.png,.pdf" />
+          </div>
+        </div>
+
+        <!-- Form action buttons -->
+        <div class="form-actions">
+          <button type="submit" class="btn-save">Guardar</button>
+          <button type="button" id="btnCancell" class="btn-cancell">Cancelar</button>
+          <button type="button" id="btnEdit" class="btn-edit">Editar</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Invoice Table and Filters -->
+    <h3>Tabla de Registro de Documentos</h3>
+    <div id="filterContainer" class="filter-container">
+      <!-- Filter by field -->
+      <label for="filterField">Filtrar por:</label>
+      <select id="filterField" class="filter-input">
+        <option value="">--Seleccione campo--</option>
+        <option value="nroDocument">N° Doc</option>
+        <option value="ruc">RUC</option>
+        <option value="legalName">Razón Social</option>
+        <option value="date">Fecha</option>
+        <option value="currency">Moneda</option>
+        <option value="centerCost">Centro de Costo</option>
+        <option value="user">Usuario</option>
+      </select>
+
+      <!-- Dynamic filter input -->
+      <div id="filterValueWrapper" class="filter-input"></div>
+
+      <!-- Sort buttons -->
+      <div id="sortButtonsWrapper" class="filter-buttons">
+        <button data-sort="date" data-order="desc">Más Reciente</button>
+        <button data-sort="date" data-order="asc">Más Antiguo</button>
+        <button data-sort="total" data-order="desc">Monto Mayor</button>
+        <button data-sort="total" data-order="asc">Monto Menor</button>
+      </div>
+    </div>
+
+    <!-- Invoice Table -->
+    <div id="tableContainer">
+      <table id="invoicesTable">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="selectAll"></th>
+            <th>N° Doc</th>
+            <th>RUC</th>
+            <th>Razón Social</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Moneda</th>
+            <th>Centro Costo</th>
+            <th>Usuario</th>
+            <th>Descripción</th>
+            <th>Link</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <!-- Rows dynamically generated by TableModule -->
+        </tbody>
+      </table>
+
+      <!-- Add Invoice Button -->
+      <button id="btnAddInvoice" class="btn-add-invoice">+ Agregar Factura</button>
+
+      <!-- Table summary -->
+      <div id="invoiceSummary">
+        <p><strong>Registros:</strong> <span id="recordCount">0</span></p>
+        <p><strong>Total por Moneda:</strong> <span id="currencyTotal">0.00</span></p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Main app script -->
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
